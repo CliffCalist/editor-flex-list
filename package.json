@@ -1,0 +1,11 @@
+{
+    "name": "com.white-arrow-editor.flex-list",
+    "version": "1.0.0",
+    "displayName": "Editor Flex List",
+    "description": "A highly customizable and extensible list view for the Unity Editor, offering full control over element rendering and creation logic.",
+    "licensesUrl": "https://github.com/CliffCalist/editor-flex-list/blob/62924eb0624878feafe6a191f38df6b04b7cba16/LICENSE",
+    "author": {
+        "name": "White Arrow",
+        "email": "cliffstersprog@gmail.com"
+    }
+}
