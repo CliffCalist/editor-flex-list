@@ -92,9 +92,10 @@ namespace WhiteArrowEditor
 
 
 
-        public void AddHeaderButton(string text, Action onClick)
+        public void AddHeaderButton(string text, int width, Action onClick)
         {
             var btn = CreateActionButton(text, onClick);
+            btn.style.width = width;
             _headerButtonsContainer.Add(btn);
         }
 
