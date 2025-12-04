@@ -24,8 +24,9 @@ namespace WhiteArrowEditor
 
 
 
-        private readonly Label _label;
         private readonly VisualElement _headerContainer;
+        private readonly Label _label;
+        private readonly Button _addButton;
 
         private readonly VisualElement _itemsContainer;
         private readonly Dictionary<object, bool> _foldoutStates = new();
@@ -59,8 +60,8 @@ namespace WhiteArrowEditor
             _itemsContainer = this.Q("elements-container");
             _label = listRoot.Q<Label>("list-label");
 
-            var addButton = listRoot.Q<Button>("addElement-button");
-            addButton.clicked += () =>
+            _addButton = listRoot.Q<Button>("addElement-button");
+            _addButton.clicked += () =>
             {
                 _itemSourceCreator.RequestCreate(result =>
                 {
@@ -72,7 +73,7 @@ namespace WhiteArrowEditor
                 });
             };
 
-            _headerContainer = addButton.parent;
+            _headerContainer = _addButton.parent;
         }
 
         private VisualTreeAsset LoadUXML(string relativePath)
@@ -92,16 +93,23 @@ namespace WhiteArrowEditor
 
 
 
-        public void AddCustomHeaderElement(VisualElement element)
-        {
-            _headerContainer.Add(element);
-        }
-
         public void AddHeaderButton(string text, int width, Action onClick)
         {
             var btn = CreateActionButton(text, onClick);
             btn.style.width = width;
-            _headerContainer.Add(btn);
+            AddCustomHeaderElement(btn);
+        }
+
+        public void AddCustomHeaderElement(VisualElement element)
+        {
+            if (element == null)
+                throw new ArgumentNullException(nameof(element));
+
+            var index = _headerContainer.IndexOf(_addButton);
+            if (index < 0)
+                _headerContainer.Add(element);
+            else
+                _headerContainer.Insert(index, element);
         }
 
 
