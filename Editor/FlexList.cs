@@ -23,19 +23,22 @@ namespace WhiteArrowEditor
         private Action<object, int> _reorderSourceItem;
 
 
+
         private readonly Label _label;
+        private readonly VisualElement _headerButtonsContainer;
+
         private readonly VisualElement _itemsContainer;
-        private Func<object, VisualElement> _renderItem;
-        public Func<object, string> GetItemName;
         private readonly Dictionary<object, bool> _foldoutStates = new();
 
-
-
+        public Func<object, string> GetItemName;
         public Func<object, IEnumerable<Button>> OnCreateActionButtons { get; set; }
+        private Func<object, VisualElement> _renderItem;
+
 
 
         public Label Label => _label;
         public bool IsItemReorderingEnabled => _isItemReorderingEnabled;
+
 
 
         public event Action Changed;
@@ -68,6 +71,8 @@ namespace WhiteArrowEditor
                     }
                 });
             };
+
+            _headerButtonsContainer = addButton.parent;
         }
 
         private VisualTreeAsset LoadUXML(string relativePath)
@@ -83,6 +88,14 @@ namespace WhiteArrowEditor
 
             Debug.LogWarning($"[FlexList] Could not find UXML: {relativePath}");
             return null;
+        }
+
+
+
+        public void AddHeaderButton(string text, Action onClick)
+        {
+            var btn = CreateActionButton(text, onClick);
+            _headerButtonsContainer.Add(btn);
         }
 
 
