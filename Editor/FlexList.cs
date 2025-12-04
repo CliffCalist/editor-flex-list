@@ -25,7 +25,7 @@ namespace WhiteArrowEditor
 
 
         private readonly Label _label;
-        private readonly VisualElement _headerButtonsContainer;
+        private readonly VisualElement _headerContainer;
 
         private readonly VisualElement _itemsContainer;
         private readonly Dictionary<object, bool> _foldoutStates = new();
@@ -72,7 +72,7 @@ namespace WhiteArrowEditor
                 });
             };
 
-            _headerButtonsContainer = addButton.parent;
+            _headerContainer = addButton.parent;
         }
 
         private VisualTreeAsset LoadUXML(string relativePath)
@@ -92,11 +92,16 @@ namespace WhiteArrowEditor
 
 
 
+        public void AddCustomHeaderElement(VisualElement element)
+        {
+            _headerContainer.Add(element);
+        }
+
         public void AddHeaderButton(string text, int width, Action onClick)
         {
             var btn = CreateActionButton(text, onClick);
             btn.style.width = width;
-            _headerButtonsContainer.Add(btn);
+            _headerContainer.Add(btn);
         }
 
 
